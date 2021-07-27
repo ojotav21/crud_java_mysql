@@ -1,6 +1,10 @@
 <h1 align="center">Projeto CRUD com Java e MySQL</h1>
 <p align="center">Utilizando a IDE do NetBeans, faremos uma conexão entre o banco de Dados MySQL com a Aplicação Web feita utilizando Java</p>
-<img align="center" src="https://img.shields.io/static/v1?label=Blog&message=CRUD&color=#134a26&style=for-the-badge&logo=ghost"/>
+<div align="center">
+<img src="https://img.shields.io/static/v1?label=Blog&message=CRUD&color=#134a26&style=for-the-badge&logo=ghost"/>
+</div>
+
+<br>
 
 <p align="center">
  <a href="#objetivo">Objetivo</a> •
@@ -15,13 +19,16 @@
 <h2 align="center" id="#objetivo">Objetivo</h2>
 <p align="center">Criar uma aplicação Web para sintetizar os conteúdos propostos na decorrência do curso.</p>
 
-<h2 align="center" id="#bancoDeDados">>Banco de Dados</h2>
+<h2 align="center" id="#bancoDeDados">Banco de Dados</h2>
 <p align="center">Utilizando o Xampp, o MYSQL foi o banco de dados escolhido!</p>
 <h4 align="center"> Desenhadores do SQL para vermos os relacionamentos </h4>
 <div align="center">
-
+	<h1 align="center">
+	  ![relacionamentos](https://user-images.githubusercontent.com/60045344/127184823-25661c1e-3479-4f16-8cb8-099b757dd51f.JPG)
+	</h1>
 </div>
 
+
 <h4 align="center"> 
-	🚧 CRUD 🚀 Em construção...  🚧
+	🚧 CRUD Em construção...  🚧
 </h4>
