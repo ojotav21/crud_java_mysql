@@ -1,6 +1,6 @@
 <h1 align="center">Projeto CRUD com Java e MySQL</h1>
 <p align="center">Utilizando a IDE do NetBeans, faremos uma conexão entre o banco de Dados MySQL com a Aplicação Web feita utilizando Java</p>
-<img src="https://img.shields.io/static/v1?label=Blog&message=CRUD&color=#134a26&style=for-the-badge&logo=ghost"/>
+<img align="center" src="https://img.shields.io/static/v1?label=Blog&message=CRUD&color=#134a26&style=for-the-badge&logo=ghost"/>
 
 <p align="center">
  <a href="#objetivo">Objetivo</a> •
