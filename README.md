@@ -18,7 +18,7 @@
 
 <h2 align="center" id="#objetivo">Objetivo</h2>
 <p align="center">Criar uma aplicação Web para sintetizar os conteúdos propostos na decorrência do curso.</p>
-
+<br>
 <h2 align="center" id="#bancoDeDados">Banco de Dados</h2>
 <p align="center">Utilizando o Xampp, o MYSQL foi o banco de dados escolhido!</p>
 <h4 align="center"> Desenhadores do SQL para vermos os relacionamentos </h4>
