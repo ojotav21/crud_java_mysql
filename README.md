@@ -23,12 +23,9 @@
 <p align="center">Utilizando o Xampp, o MYSQL foi o banco de dados escolhido!</p>
 <h4 align="center"> Desenhadores do SQL para vermos os relacionamentos </h4>
 <div align="center">
-	<h1 align="center">
-	  ![relacionamentos](https://user-images.githubusercontent.com/60045344/127184823-25661c1e-3479-4f16-8cb8-099b757dd51f.JPG)
-	</h1>
+	<img src="assets_readme/relacionamentos.JPG"/>
 </div>
-
-
+<br>
 <h4 align="center"> 
 	🚧 CRUD Em construção...  🚧
 </h4>
