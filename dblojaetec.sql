@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Jul-2021 às 17:54
+-- Tempo de geração: 31-Jul-2021 às 17:28
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.2.34
 
@@ -37,6 +37,14 @@ CREATE TABLE `clientes` (
   `emailcli` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `clientes`
+--
+
+INSERT INTO `clientes` (`idcli`, `nomecli`, `endcli`, `fonecli`, `emailcli`) VALUES
+(1, 'JV', 'Rua Endereço Jv, 8, Cidade Jv - Brasil\r\n', '11222223333', 'jv@email.com'),
+(2, 'JV', 'Rua Endereço Jv, 8, Cidade Jv - Brasil\r\n', '11222223333', 'jv@email.com');
+
 -- --------------------------------------------------------
 
 --
@@ -54,6 +62,14 @@ CREATE TABLE `ordem_servico` (
   `idcli` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `ordem_servico`
+--
+
+INSERT INTO `ordem_servico` (`os`, `data_os`, `equipamento`, `defeito`, `servico`, `tecnico`, `valor`, `idcli`) VALUES
+(1, '2021-07-31 15:25:42', 'desktop', 'memoria ram mal colocada', 'Manutenção e troca de componentes\r\n', 'Andershow', NULL, 1),
+(2, '2021-07-31 15:25:45', 'desktop', 'memoria ram mal colocada', 'Manutenção e troca de componentes\r\n', 'Andershow', NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -67,6 +83,13 @@ CREATE TABLE `usuarios` (
   `login` varchar(15) NOT NULL,
   `senha` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`iduser`, `usuario`, `fone`, `login`, `senha`) VALUES
+(1, 'admin', '11333334444', 'admin@admin', 'admin');
 
 --
 -- Índices para tabelas despejadas
@@ -100,19 +123,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `idcli` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idcli` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `ordem_servico`
 --
 ALTER TABLE `ordem_servico`
-  MODIFY `os` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `os` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para despejos de tabelas
