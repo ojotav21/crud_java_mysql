@@ -1,21 +1,60 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.loja.telas;
+import java.sql.*;
+import br.com.loja.dal.ModuloConexao;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author usuario
- */
 public class TelaLogin extends javax.swing.JFrame {
+    
+    Connection conexao = null;
+    PreparedStatement pst =null;
+    ResultSet rs = null;
+    
+    public void logar(){
+    //Consultar SQL -> verificar logins
+        String sql = "SELECT * FROM usuarios WHERE login =? AND senha =?;";
+        
+        //login = email para login
+        
+        try {
+            pst= conexao.prepareStatement(sql); //Prepara a consulta
+            
+            pst.setString(1, txtUser.getText()); //Set os valores para as variaveis ?
+            pst.setString(2, txtSenha.getText());
+            
+            rs = pst.executeQuery();//Executa a query
+            
+            //Nova tela
+            TelaPrincipal principal = new TelaPrincipal();
+            principal.setVisible(true);
+            
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null,"Abrindo tela principal");
+            }else{
+                JOptionPane.showMessageDialog(null,"Usuário/senha Inválidos");
+            }
+            
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null,e);
+        }
+    
+    }
 
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
+        //conexao = ModuloConexao.conector();
+        //System.out.println("Resposta -> " + conexao);
+        if(conexao != null){
+            //lblStatus.setText("CONECTADO");
+            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/dbok.png")));
+        }else{
+            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/dberror.png")));
+        }
+        
+        
+        
     }
 
     /**
@@ -27,17 +66,18 @@ public class TelaLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblEmail = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
         lblSenha = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
         btnLogar = new javax.swing.JButton();
+        lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setResizable(false);
 
-        lblEmail.setText("Email");
+        lblUser.setText("Usuário");
 
         lblSenha.setText("Senha");
 
@@ -48,40 +88,47 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
+        lblStatus.setText("STATUS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblSenha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblStatus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLogar)
+                        .addGap(66, 66, 66))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblEmail)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(147, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLogar)
-                .addGap(76, 76, 76))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblSenha)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblUser)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(135, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(86, 86, 86)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmail)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69)
+                    .addComponent(lblUser)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSenha)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnLogar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogar)
+                    .addComponent(lblStatus))
                 .addContainerGap(100, Short.MAX_VALUE))
         );
 
@@ -90,7 +137,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-        // TODO add your handling code here:
+        logar();
     }//GEN-LAST:event_btnLogarActionPerformed
 
     /**
@@ -130,9 +177,10 @@ public class TelaLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogar;
-    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblSenha;
-    private javax.swing.JTextField txtEmail;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblUser;
     private javax.swing.JPasswordField txtSenha;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

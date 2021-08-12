@@ -17,10 +17,10 @@ public class ModuloConexao {
     
     try{
         Class.forName(driver);
-        conexao = DriverManager.getConnection(url, user, password);
+        conexao = DriverManager.getConnection(url,user,password);
         return conexao;
   
-    } catch(Exception e){
+    } catch(Exception ex){
         return null;
     }
     
