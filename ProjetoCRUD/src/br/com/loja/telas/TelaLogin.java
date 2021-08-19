@@ -19,16 +19,22 @@ public class TelaLogin extends javax.swing.JFrame {
             pst= conexao.prepareStatement(sql); //Prepara a consulta
             
             pst.setString(1, txtUser.getText()); //Set os valores para as variaveis ?
-            pst.setString(2, txtSenha.getText());
+            String captura = new String(txtSenha.getPassword());
+            pst.setString(2, captura);
+            
+            //pst.setString(2, txtSenha.getText());
             
             rs = pst.executeQuery();//Executa a query
             
             //Nova tela
-            TelaPrincipal principal = new TelaPrincipal();
-            principal.setVisible(true);
-            
+           
             if (rs.next()) {
-                JOptionPane.showMessageDialog(null,"Abrindo tela principal");
+                //JOptionPane.showMessageDialog(null,"Abrindo tela principal");
+                TelaPrincipal principal = new TelaPrincipal();
+                principal.setVisible(true);
+                this.dispose();
+                conexao.close();
+                        
             }else{
                 JOptionPane.showMessageDialog(null,"Usuário/senha Inválidos");
             }
@@ -44,12 +50,13 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
-        //conexao = ModuloConexao.conector();
+        conexao = ModuloConexao.conector();
         //System.out.println("Resposta -> " + conexao);
         if(conexao != null){
-            //lblStatus.setText("CONECTADO");
+            lblStatus.setText("");
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/dbok.png")));
         }else{
+            lblStatus.setText("");
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/dberror.png")));
         }
         
@@ -72,6 +79,7 @@ public class TelaLogin extends javax.swing.JFrame {
         txtSenha = new javax.swing.JPasswordField();
         btnLogar = new javax.swing.JButton();
         lblStatus = new javax.swing.JLabel();
+        lblLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -90,6 +98,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
         lblStatus.setText("STATUS");
 
+        lblLogin.setText("admin@admin                          senha: admin");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,6 +107,9 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblLogin)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -129,7 +142,9 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogar)
                     .addComponent(lblStatus))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(lblLogin)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -177,6 +192,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogar;
+    private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblUser;
