@@ -9,7 +9,7 @@ public class TelaLogin extends javax.swing.JFrame {
     PreparedStatement pst =null;
     ResultSet rs = null;
     
-    public void logar(){
+     public void logar(){
     //Consultar SQL -> verificar logins
         String sql = "SELECT * FROM usuarios WHERE login =? AND senha =?;";
         
@@ -30,11 +30,25 @@ public class TelaLogin extends javax.swing.JFrame {
            
             if (rs.next()) {
                 //JOptionPane.showMessageDialog(null,"Abrindo tela principal");
+                String perfil = rs.getString(6);
+//                System.out.println("Perfil =>" + perfil);;
+            if(perfil.equals("admin")){
                 TelaPrincipal principal = new TelaPrincipal();
                 principal.setVisible(true);
+                TelaPrincipal.MenuRelatorio.setEnabled(true);
+                TelaPrincipal.MenuCadastroUsuarios.setEnabled(true);
+                TelaPrincipal.lblUsuario.setText(rs.getString(2));
                 this.dispose();
                 conexao.close();
-                        
+            
+            }else{
+                TelaPrincipal principal = new TelaPrincipal();
+                principal.setVisible(true);
+                TelaPrincipal.lblUsuario.setText(rs.getString(2));
+                this.dispose();
+                conexao.close();
+            }
+       
             }else{
                 JOptionPane.showMessageDialog(null,"Usuário/senha Inválidos");
             }
@@ -44,6 +58,7 @@ public class TelaLogin extends javax.swing.JFrame {
         }
     
     }
+
 
     /**
      * Creates new form TelaLogin
@@ -80,6 +95,7 @@ public class TelaLogin extends javax.swing.JFrame {
         btnLogar = new javax.swing.JButton();
         lblStatus = new javax.swing.JLabel();
         lblLogin = new javax.swing.JLabel();
+        lblLoginUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -98,7 +114,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
         lblStatus.setText("STATUS");
 
-        lblLogin.setText("admin@admin                          senha: admin");
+        lblLogin.setText("admin@admin                          senha: admin  -> admin");
+
+        lblLoginUser.setText("joao@gmail.com                      senha: 1234   -> user");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,9 +125,6 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblLogin)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -125,7 +140,12 @@ public class TelaLogin extends javax.swing.JFrame {
                                 .addComponent(lblUser)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(135, Short.MAX_VALUE))))
+                        .addContainerGap(135, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLoginUser)
+                            .addComponent(lblLogin))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +164,9 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(lblStatus))
                 .addGap(33, 33, 33)
                 .addComponent(lblLogin)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblLoginUser)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -193,6 +215,7 @@ public class TelaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogar;
     private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblLoginUser;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblUser;
