@@ -9,6 +9,9 @@ public class ModuloConexao {
     //Configurando a Conexão
     String driver;
     driver = "com.mysql.jdbc.Driver";
+    //Para o Netbeans 12, devemos ter o JAR e, 
+    //Atualizar o driver
+    //com.mysql.cj.jdbc.Driver
     
     //Variaveis para passar info do Banco de Dados
     String url ="jdbc:mysql://localhost:3306/dblojaetec";

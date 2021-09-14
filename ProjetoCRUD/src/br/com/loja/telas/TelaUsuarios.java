@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class TelaUsuarios extends javax.swing.JInternalFrame {
 
-          Connection conexao = null;
+        Connection conexao = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
     public TelaUsuarios() {
@@ -103,7 +103,39 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
      
      
     }
-
+    private void atualizar(){
+        String sql = "UPDATE usuarios SET usuario=?, fone =?, login=?, senha=?, perfil=? WHERE iduser=? ";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, txtNome.getText());
+            pst.setString(2, txtTelefone.getText());
+            pst.setString(3, txtLogin.getText());
+            String captura = new String(txtSenha.getPassword());
+            pst.setString(4, captura);
+            pst.setString(5, comboPerfil.getSelectedItem().toString());
+            pst.setString(6, txtId.getText());
+            
+            if (txtId.getText().isEmpty() ||txtNome.getText().isEmpty() ||txtTelefone.getText().isEmpty() ||txtLogin.getText().isEmpty() || txtSenha.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de fazer uma alteração");
+            } else {
+                int result = pst.executeUpdate();
+                if(result ==1){
+                    JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
+                    txtNome.setText(null);
+                    txtSenha.setText(null);
+                    txtTelefone.setText(null);
+                    txtLogin.setText(null);
+                
+                }
+            }
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro" + e);
+        }
+     
+     
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -169,6 +201,11 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         btnAlterar.setToolTipText("Alterar");
         btnAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAlterar.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/delete.png"))); // NOI18N
         btnApagar.setToolTipText("Apagar");
@@ -270,6 +307,10 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
        adicionar();
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+       atualizar();
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
