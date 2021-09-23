@@ -39,6 +39,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
      
             }else{
                 JOptionPane.showMessageDialog(null,"Usuário não cadastrado");
+                txtId.setText(null);
                 txtNome.setText(null);
                 txtSenha.setText(null);
                 txtTelefone.setText(null);
@@ -136,6 +137,36 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
      
      
     }
+    private void deletar (){
+        //Confirmação via JOptionPane
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deletar?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if(confirma == JOptionPane.YES_NO_OPTION){
+             String sql = "DELETE FROM usuarios WHERE iduser =?";
+             try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtId.getText());
+                int apagado = pst.executeUpdate();
+                if(apagado >0){
+                    JOptionPane.showMessageDialog(null, "Usuário apagado com sucesso!");
+                    txtId.setText(null);
+                    txtNome.setText(null);
+                    txtSenha.setText(null);
+                    txtTelefone.setText(null);
+                    txtLogin.setText(null);
+                }
+                        
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "O Erro foi: "+ e);
+            }
+        
+        
+        }
+    
+    
+    
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -166,7 +197,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Cadastro de Usuários");
-        setPreferredSize(new java.awt.Dimension(400, 400));
+        setPreferredSize(new java.awt.Dimension(500, 500));
 
         lblIdUser.setText("ID Usuário");
 
@@ -211,6 +242,11 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         btnApagar.setToolTipText("Apagar");
         btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnApagar.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
 
         btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/create.png"))); // NOI18N
         btnAdicionar.setToolTipText("Adicionar");
@@ -227,40 +263,41 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblIdUser)
-                    .addComponent(lblSenha)
-                    .addComponent(lblTel)
-                    .addComponent(lblNome)
-                    .addComponent(lblLogin)
-                    .addComponent(lblPerfil))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSenha)
-                    .addComponent(txtLogin)
-                    .addComponent(txtNome)
-                    .addComponent(txtTelefone)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(comboPerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(75, 75, 75))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIdUser)
+                            .addComponent(lblSenha)
+                            .addComponent(lblTel)
+                            .addComponent(lblNome)
+                            .addComponent(lblLogin)
+                            .addComponent(lblPerfil))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSenha)
+                            .addComponent(txtLogin)
+                            .addComponent(txtNome)
+                            .addComponent(txtTelefone)
+                            .addComponent(comboPerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIdUser)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -290,7 +327,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                     .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -311,6 +348,10 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
        atualizar();
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+        deletar();
+    }//GEN-LAST:event_btnApagarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

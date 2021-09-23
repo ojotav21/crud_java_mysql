@@ -59,11 +59,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         lblUsuario.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
@@ -75,6 +75,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuCadastro.setText("Cadastro");
 
         MenuCadastroCliente.setText("Cliente");
+        MenuCadastroCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadastroClienteActionPerformed(evt);
+            }
+        });
         MenuCadastro.add(MenuCadastroCliente);
 
         MenuCadastroOS.setText("OS");
@@ -135,12 +140,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsuario)
                     .addComponent(lblData))
-                .addGap(0, 160, Short.MAX_VALUE))
+                .addGap(0, 146, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +156,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(lblData)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -190,6 +195,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Desktop.add(usuarios);
         
     }//GEN-LAST:event_MenuCadastroUsuariosActionPerformed
+
+    private void MenuCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastroClienteActionPerformed
+        TelaClientes clientes = new TelaClientes();
+        clientes.setVisible(true);
+        Desktop.add(clientes);
+    }//GEN-LAST:event_MenuCadastroClienteActionPerformed
 
     /**
      * @param args the command line arguments
