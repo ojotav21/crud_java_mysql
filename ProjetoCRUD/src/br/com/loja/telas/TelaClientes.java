@@ -7,6 +7,7 @@ package br.com.loja.telas;
 import java.sql.*;
 import br.com.loja.dal.ModuloConexao;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 /**
  *
  * @author usuario
@@ -21,7 +22,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();
     }
 
-     private void adicionar(){
+    private void adicionar(){
         String sql = "INSERT INTO clientes (nomecli,endcli,fonecli,emailcli) VALUES( ?, ?, ?, ?)";
 
         try {
@@ -55,6 +56,28 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     }
     
     
+    //Consulta Avançada
+    private void pesquisar_clientes(){
+        String sql = "SELECT * FROM clientes WHERE nomecli LIKE ?";
+        try {
+             pst=conexao.prepareStatement(sql);
+             pst.setString(1, txtBuscaCliente.getText()+"%");
+             rs = pst.executeQuery();
+             tblClientes.setModel(DbUtils.resultSetToTableModel(rs));
+            
+        } catch (Exception e) {
+        }
+        
+    }
+    
+    //Setar campos na Tabela
+    private void setar_campos(){
+        int setar = tblClientes.getSelectedRow();
+        txtNome.setText(tblClientes.getModel().getValueAt(setar,1).toString());
+        txtEndereco.setText(tblClientes.getModel().getValueAt(setar,2).toString());
+        txtTelefone.setText(tblClientes.getModel().getValueAt(setar,3).toString());
+        txtEmail.setText(tblClientes.getModel().getValueAt(setar,4).toString());
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -73,7 +96,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         txtBuscaCliente = new javax.swing.JTextField();
         btnPesquisa = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         txtEmail = new javax.swing.JTextField();
 
         setClosable(true);
@@ -120,9 +143,20 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
         lblEndereco.setText("Endereço");
 
+        txtBuscaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaClienteActionPerformed(evt);
+            }
+        });
+        txtBuscaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscaClienteKeyReleased(evt);
+            }
+        });
+
         btnPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/pesquisar.png"))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -133,7 +167,12 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,6 +264,18 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         adicionar();
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
+    private void txtBuscaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscaClienteActionPerformed
+
+    private void txtBuscaClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaClienteKeyReleased
+        pesquisar_clientes();
+    }//GEN-LAST:event_txtBuscaClienteKeyReleased
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        setar_campos();
+    }//GEN-LAST:event_tblClientesMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
@@ -232,11 +283,11 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnApagar;
     private javax.swing.JLabel btnPesquisa;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTel;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtBuscaCliente;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
