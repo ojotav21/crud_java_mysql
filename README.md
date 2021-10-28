@@ -29,3 +29,8 @@
 <h4 align="center"> 
 	🚧 CRUD Em construção...  🚧
 </h4>
+<br>
+
+<h2 align="center" id="#autor"> 
+</h2>
+• <p >Gustavo Henrique Silva Pinto</p> • <p >João Victor Morais</p> •
