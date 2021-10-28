@@ -8,7 +8,7 @@ public class ModuloConexao {
     
     //Configurando a Conexão
     String driver;
-    driver = "com.mysql.jdbc.Driver";
+    driver = "com.mysql.cj.jdbc.Driver";
     //Para o Netbeans 12, devemos ter o JAR e, 
     //Atualizar o driver
     //com.mysql.cj.jdbc.Driver
