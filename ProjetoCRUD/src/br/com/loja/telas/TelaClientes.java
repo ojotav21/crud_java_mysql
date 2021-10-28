@@ -101,6 +101,37 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         
     }
     
+    //Delete
+     private void deletar (){
+        //Confirmação via JOptionPane
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deletar?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if(confirma == JOptionPane.YES_NO_OPTION){
+             String sql = "DELETE FROM clientes WHERE idcli=?";
+             try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtIdCli.getText());
+                int apagado = pst.executeUpdate();
+                if(apagado >0){
+                    JOptionPane.showMessageDialog(null, "Usuário apagado com sucesso!");
+                    txtIdCli.setText(null);
+                    txtNome.setText(null);
+                    txtTelefone.setText(null);
+                    txtEmail.setText(null);
+                    txtEndereco.setText(null);
+                }
+                        
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "O Erro foi: "+ e);
+            }
+        
+        
+        }
+    
+    
+    
+    }
+    
+    
     //Setar campos na Tabela
     private void setar_campos(){
         int setar = tblClientes.getSelectedRow();
@@ -304,7 +335,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-       
+        deletar();
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
