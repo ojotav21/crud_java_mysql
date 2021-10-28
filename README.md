@@ -33,4 +33,5 @@
 
 <h2 align="center" id="#autor"> 
 </h2>
-<p align="center" >• Gustavo Henrique Silva Pinto • João Victor Morais</p> •
+<p align="center" >• Gustavo Henrique Silva Pinto • João Victor Morais •
+</p> 
