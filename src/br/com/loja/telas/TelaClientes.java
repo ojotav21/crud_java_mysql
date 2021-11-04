@@ -7,6 +7,7 @@ package br.com.loja.telas;
 import java.sql.*;
 import br.com.loja.dal.ModuloConexao;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 /**
  *
@@ -39,10 +40,8 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 int result = pst.executeUpdate();
                 if(result ==1){
                     JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!");
-                    txtNome.setText(null);
-                    txtEmail.setText(null);
-                    txtTelefone.setText(null);
-                    txtEndereco.setText(null);
+                    limpar_dados();
+                   
                 
                 }
             }
@@ -71,11 +70,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 int result = pst.executeUpdate();
                 if(result ==1){
                     JOptionPane.showMessageDialog(null, "Dados alterados do cliente, foram com sucesso!");
-                    txtIdCli.setText(null);
-                    txtNome.setText(null);
-                    txtEndereco.setText(null);
-                    txtTelefone.setText(null);
-                    txtEmail.setText(null);
+                    limpar_dados();
                 
                 }
             }
@@ -89,7 +84,9 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     }
     //Consulta Avançada
     private void pesquisar_clientes(){
-        String sql = "SELECT * FROM clientes WHERE nomecli LIKE ?";
+        String sql = "SELECT idcli as ID, nomecli as Nome, endcli as Endereço, "
+                + "fonecli as Telefone, emailcli as Email FROM clientes "
+                + "WHERE nomecli LIKE ?";
         try {
              pst=conexao.prepareStatement(sql);
              pst.setString(1, txtBuscaCliente.getText()+"%");
@@ -113,11 +110,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 int apagado = pst.executeUpdate();
                 if(apagado >0){
                     JOptionPane.showMessageDialog(null, "Usuário apagado com sucesso!");
-                    txtIdCli.setText(null);
-                    txtNome.setText(null);
-                    txtTelefone.setText(null);
-                    txtEmail.setText(null);
-                    txtEndereco.setText(null);
+                    limpar_dados();
                 }
                         
             } catch (Exception e) {
@@ -141,6 +134,18 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         txtTelefone.setText(tblClientes.getModel().getValueAt(setar,3).toString());
         txtEmail.setText(tblClientes.getModel().getValueAt(setar,4).toString());
     }
+    
+    //Limpar dados
+    private void limpar_dados (){
+          txtBuscaCliente.setText(null);
+          txtIdCli.setText(null);
+          txtNome.setText(null);
+          txtTelefone.setText(null);
+          txtEmail.setText(null);
+          txtEndereco.setText(null);
+          ((DefaultTableModel)tblClientes.getModel()).setRowCount(0);
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -172,7 +177,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/update.png"))); // NOI18N
         btnAlterar.setToolTipText("Alterar");
-        btnAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAlterar.setPreferredSize(new java.awt.Dimension(80, 80));
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +187,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
         btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/delete.png"))); // NOI18N
         btnApagar.setToolTipText("Apagar");
-        btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnApagar.setPreferredSize(new java.awt.Dimension(80, 80));
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,7 +197,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
         btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/create.png"))); // NOI18N
         btnAdicionar.setToolTipText("Adicionar");
-        btnAdicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAdicionar.setPreferredSize(new java.awt.Dimension(80, 80));
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,13 +228,13 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nome", "Endereço", "Telefone", "Email"
             }
         ));
         tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {

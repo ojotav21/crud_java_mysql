@@ -39,11 +39,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
      
             }else{
                 JOptionPane.showMessageDialog(null,"Usuário não cadastrado");
-                txtId.setText(null);
-                txtNome.setText(null);
-                txtSenha.setText(null);
-                txtTelefone.setText(null);
-                txtLogin.setText(null);
+                limpar_dados();
                 
             
             }
@@ -89,10 +85,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 int result = pst.executeUpdate();
                 if(result ==1){
                     JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!");
-                    txtNome.setText(null);
-                    txtSenha.setText(null);
-                    txtTelefone.setText(null);
-                    txtLogin.setText(null);
+                    limpar_dados();
                 
                 }
             }
@@ -122,10 +115,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 int result = pst.executeUpdate();
                 if(result ==1){
                     JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
-                    txtNome.setText(null);
-                    txtSenha.setText(null);
-                    txtTelefone.setText(null);
-                    txtLogin.setText(null);
+                    limpar_dados();
                 
                 }
             }
@@ -148,11 +138,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 int apagado = pst.executeUpdate();
                 if(apagado >0){
                     JOptionPane.showMessageDialog(null, "Usuário apagado com sucesso!");
-                    txtId.setText(null);
-                    txtNome.setText(null);
-                    txtSenha.setText(null);
-                    txtTelefone.setText(null);
-                    txtLogin.setText(null);
+                    limpar_dados();
                 }
                         
             } catch (Exception e) {
@@ -164,6 +150,16 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     
     
     
+    }
+    
+   
+    //Limpar dados
+    private void limpar_dados(){
+         txtId.setText(null);
+         txtNome.setText(null);
+         txtSenha.setText(null);
+         txtTelefone.setText(null);
+         txtLogin.setText(null);
     }
     
     
