@@ -74,7 +74,7 @@ public class TelaLogin extends javax.swing.JFrame {
             lblStatus.setText("");
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/loja/icones/dberror.png")));
         }
-        
+        getRootPane().setDefaultButton(btnLogar); //botão login como deafault. Botão ender já o fará logar
         
         
     }
