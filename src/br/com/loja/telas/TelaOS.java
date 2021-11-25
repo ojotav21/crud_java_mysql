@@ -84,6 +84,51 @@ public class TelaOS extends javax.swing.JInternalFrame {
      
     }
     
+    
+    
+    private void pesquisa_os(){
+        String num_os = JOptionPane.showInputDialog("Número da OS: ");
+        //consulta a String de Consulta na Tabela ordem_serviço
+        String sql = "SELECT * FROM ordem_servico WHERE os =" + num_os;
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs=pst.executeQuery();
+            if(rs.next()){
+                txtOs.setText(rs.getString(1));
+                txtData.setText(rs.getString(2));
+                //SETAR
+                String radio_tipo = rs.getString(8);
+                if (radio_tipo.equals("OS")) {
+                    rbtOs.setSelected(true);
+                    tipo = "OS";
+                }else{
+                    rbtOrc.setSelected(true);
+                    tipo = "Orçamento";
+                }
+            
+            cboSituacao.setSelectedItem(rs.getString(9));
+            txtOsEquip.setText(rs.getString(3));
+            txtOsDef.setText(rs.getString(4));
+            txtOsServ.setText(rs.getString(5));
+            txtOsTec.setText(rs.getString(6));
+            txtOsValor.setText(rs.getString(7));
+            txtIdCli.setText(rs.getString(10));
+            
+            btnAdicionar.setEnabled(false);
+            txtCliPesquisar.setEditable(false);
+            TblClientes.setVisible(false);
+            
+            }else{
+                JOptionPane.showMessageDialog(null, "OS não cadastrada");
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"ERRO: "+e);
+        }
+
+    }
+    
+    
      //Limpar dados
     private void limpar_dados(){
          txtIdCli.setText(null);
@@ -469,7 +514,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
-        //consultar();
+       pesquisa_os();
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
