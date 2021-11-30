@@ -128,6 +128,48 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
     }
     
+    private void atualizar(){
+         String sql = "UPDATE ordem_servico SET tipo=?, situacao =?, equipamento=?, defeito=?, tecnico=?, valor =?, servico=? WHERE os=? ";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1, tipo);
+            pst.setString(2, cboSituacao.getSelectedItem().toString());
+            pst.setString(3, txtOsEquip.getText());
+            pst.setString(4, txtOsDef.getText());
+            pst.setString(5, txtOsTec.getText());
+            pst.setString(6, txtOsValor.getText().replace(",", "."));
+            pst.setString(7, txtOsServ.getText());
+            pst.setString(8, txtOs.getText());
+            
+            if (txtIdCli.getText().isEmpty() ||txtOsEquip.getText().isEmpty() ||txtOsDef.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de fazer uma alteração");
+            } else {
+                int result = pst.executeUpdate();
+                if(result ==1){
+                    JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
+                        txtIdCli.setText(null);
+                        txtOsEquip.setText(null);
+                        txtOsDef.setText(null);
+                        txtOsTec.setText(null);
+                        txtOsValor.setText(null);
+                        txtOsServ.setText(null);
+                        txtData.setText(null);
+                        txtOs.setText(null);
+                        //Inativando campos
+                        btnAdicionar.setEnabled(true);
+                        txtCliPesquisar.setEnabled(true);
+                        TblClientes.setEnabled(true);
+
+                }
+            }
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro" + e);
+        }
+     
+     
+    }
     
      //Limpar dados
     private void limpar_dados(){
@@ -518,7 +560,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        //atualizar();
+        atualizar();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
